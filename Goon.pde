@@ -5,6 +5,8 @@ class Goon {
   float posY;
   float oldX;
   float oldY;
+  float startPosX;
+  float startPosY;
   byte HP = 1;
   boolean canMoveUp = true;
   boolean canMoveDown = true;
@@ -27,6 +29,8 @@ class Goon {
   {
     posX = x;
     posY = y;
+    startPosX = posX;
+    startPosY = posY;
   }
 
   void display (float x) 
@@ -384,6 +388,14 @@ class Goon {
     canMoveDown = true;
     canMoveRight = true;
     canMoveLeft = true;
+  }
+  
+  void reset()
+  {
+    posX = startPosX;
+    posY = startPosY;
+    HP = 1;
+    alive = true;
   }
 
   boolean colGoon (Goon z)

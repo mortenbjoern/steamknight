@@ -721,47 +721,16 @@ void softReset()
   Main.setStartPos();
   deathStatement = defaultDeathStatement;
 
-  //reset status of all goons
-  goon1.posX = goonPosX[0][0]; 
-  goon1.posY = goonPosY[0][0];
-  goon2.posX = goonPosX[0][1]; 
-  goon1.posY = goonPosY[0][1];
-  goon3.posX = goonPosX[1][0]; 
-  goon1.posY = goonPosY[1][0];
-  goon1.alive = true;
-  goon2.alive = true;
-  goon3.alive = true;
-  goon1.HP = 1;
-  goon2.HP = 1;
-  goon3.HP = 1;
-
-  //reset status of all skeletons
-  skele1.posX = skeletonPosX[0][0]; 
-  skele1.posY = skeletonPosY[0][0];
-  skele2.posX = skeletonPosX[0][1]; 
-  skele2.posY = skeletonPosY[0][1];
-  skele3.posX = skeletonPosX[0][2]; 
-  skele3.posY = skeletonPosY[0][2];
-  skele4.posX = skeletonPosX[1][0]; 
-  skele4.posY = skeletonPosY[1][0];
-  skele1.alive = true;
-  skele2.alive = true;
-  skele3.alive = true;
-  skele4.alive = true;
-  skele1.HP = 1;
-  skele2.HP = 1;
-  skele3.HP = 1;
-  skele4.HP = 1;
-
-  //reset status of all seekers
-  seeker.posX = seekerPosX; 
-  seeker.posY = seekerPosY;
-  seeker.alive = true;
-  seeker.HP = 3;
-
-  //reset status of all wraiths
-  wraith.posX = wraithPosX; 
-  wraith.posY = wraithPosY;
+  //reset status of all mobs
+  goon1.reset();
+  goon2.reset();
+  goon3.reset();
+  skele1.reset();
+  skele2.reset();
+  skele3.reset();
+  skele4.reset();
+  seeker.reset();
+  wraith.reset();
 
   //activate all coins
   for (int i = 0; i < coinsL1.length; i++)
