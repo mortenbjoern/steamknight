@@ -11,36 +11,15 @@
  
  */
 
-//Libraries to be imported
-import processing.sound.*;
-
-//variables for highscores
-String[] HiScoreName;
-String[] scoring;
-char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'æ', 'ø', 'å', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Æ', 'Ø', 'Å', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-String[] initials = {"_", "_", "_"};
-byte initialsPos = 0;
-String name = join(initials, "");
-
-//global variables, screens
-byte screen = 0;
-PFont bitmapFont;
-PFont cleanFont;
-PImage menuScreen;
-boolean playmusic = true;
-
-//global variables, in-game
+//super important global variables
 float tS = 64; //tS = tileSize;
 float h = tS/2; //h = half a tileSize;
-color particleColors [] = {color(3, 74, 236), color(207, 16, 32)};
-int score = 0;
+byte screen = 0;
 byte level = 0;
-
-//level dependant variabels
-int moves = 0;
+int moves = 0; //consider moving to player class
+int score = 0;
 
 //declare important stuff
-PImage dungeon;
 Player Main;
 
 //declare particles
@@ -115,12 +94,12 @@ void setup()
   //declare particles
   for (int i = 0; i < rain.length; i++)
   {
-    rain[i] = new Particles(particleColors[0], random(-1, 1), 240, random(-720));
+    rain[i] = new Particles(color(3, 74, 236), random(-1, 1), 240, random(-720));
   }
 
   for (int i = 0; i < embers.length; i++)
   {
-    embers[i] = new Particles(particleColors[1], random(-10, 10), 20, random(height+50));
+    embers[i] = new Particles(color(207, 16, 32), random(-10, 10), 20, random(height+50));
   }
 
   //declare traps for each level
