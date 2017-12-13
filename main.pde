@@ -7,7 +7,7 @@
  The object of the game is to collect enough coins and defeat enough monsters to get a highscore. 
  here are five levels in the game, each with their own theme (forest, dungeon, catacombs, cursed church, hell).
  
- v1.0.1 — DEC 2017
+ v1.0.2 — DEC 2017
  */
 
 //super important global variables
