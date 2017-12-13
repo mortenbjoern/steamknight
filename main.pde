@@ -9,7 +9,7 @@
  The object of the game is to collect enough coins and defeat enough monsters to get a highscore. 
  here are five levels in the game, each with their own theme (forest, dungeon, catacombs, cursed church, hell).
  
-*/
+ */
 
 //Libraries to be imported
 import processing.sound.*;
@@ -37,8 +37,6 @@ int score = 0;
 int level = 0;
 
 //level dependant variabels
-int mobKills = 0;
-int pickUps = 0;
 int moves = 0;
 
 //declare important stuff
@@ -95,14 +93,14 @@ void setup()
   HiScoreName = loadStrings("hiscorenames.txt");
   scoring = loadStrings("hiscores.txt");
   dungeon = loadImage("assets/dungeon.png");
-  
+
   bitmapFont = createFont("Pixeled.ttf", 15);
-  
+
   cleanFont = createFont("Roboto-Medium.ttf", 15);
   textFont(cleanFont);
-  
+
   menuScreen = loadImage("assets/startScreen.png");
-  
+
   menu = new SoundFile(this, "0.mp3");
   clik = new SoundFile(this, "clickMenu.wav");
   pres = new SoundFile(this, "letterTick.wav");
@@ -232,7 +230,7 @@ void setup()
 void keyPressed()
 {
   if (key == CODED && screen == 1)
-  move.play();
+    move.play();
   {
     if (keyCode == UP)
     {
@@ -283,25 +281,19 @@ void keyPressed()
     checkConditions(level);
     Main.update();
   } //end key CODED && screen == 1
-  
+
   if ((key == 'a' || key == 'w' || key == 's' || key == 'd') && screen == 1)
   {
     if (key == 'a')
     {
       Main.attackL(goon1, goon2, goon3, seeker, skele1, skele2, skele3, skele4);
-    }
-    
-    else if (key == 'd')
+    } else if (key == 'd')
     {
       Main.attackR(goon1, goon2, goon3, seeker, skele1, skele2, skele3, skele4);
-    }
-    
-    else if (key == 'w')
+    } else if (key == 'w')
     {
       Main.attackU(goon1, goon2, goon3, seeker, skele1, skele2, skele3, skele4);
-    }
-    
-    else if (key == 's')
+    } else if (key == 's')
     {
       Main.attackD(goon1, goon2, goon3, seeker, skele1, skele2, skele3, skele4);
     }
@@ -333,7 +325,6 @@ void afterMoves (int l)
   case 0:
 
     //entity moves
-
     goon1.move(Main.posX, Main.posY, moves, Main);
     goon1.update();
     goon2.move(Main.posX, Main.posY, moves, Main);
@@ -421,7 +412,7 @@ void afterMoves (int l)
 
 void calcScore()
 {
-  score = score + round((1+((10-moves)/100)) * ((1+mobKills)*250) + ((1+pickUps)*250)) + (Main.HP*5000);
+  score = score + round((1+((10-moves)/100)) * ((1+Main.mobKills)*250) + ((1+Main.pickUps)*250)) + (Main.HP*5000);
 }
 
 
@@ -465,11 +456,10 @@ void checkConditions(int l)
 
     //check if player or mobs are dead
     if (goon1.HP <= 0) {
-      mobKills++;
       goon1.alive = false;
     }
     if (goon2.HP <= 0) {
-      mobKills++;
+
       goon2.alive = false;
     }
     if (Main.HP <= 0) {
@@ -528,12 +518,11 @@ void checkConditions(int l)
 
     //check if player or mobs are dead
     if (seeker.HP <= 0 && seeker.alive == true) {
-      mobKills++;
+
       seeker.frame = 0; //improves death animation
       seeker.alive = false;
     }
     if (goon3.HP <= 0) {
-      mobKills++;
       goon3.alive = false;
     }
     if (Main.HP <= 0) {
@@ -572,15 +561,12 @@ void checkConditions(int l)
 
     //check if player or mobs are dead
     if (skele1.HP <= 0) {
-      mobKills++;
       skele1.alive = false;
     }
     if (skele2.HP <= 0) {
-      mobKills++;
       skele2.alive = false;
     }
     if (skele3.HP <= 0) {
-      mobKills++;
       skele3.alive = false;
     }
     if (Main.HP <= 0) {
@@ -633,7 +619,7 @@ void checkConditions(int l)
 
     //check if player or mobs are dead
     if (skele4.HP <= 0) {
-      mobKills++;
+
       skele4.alive = false;
     }
     if (Main.HP <= 0) {
@@ -698,19 +684,20 @@ void hardReset()
   moves = 0;
   score = 0;
   level = 0;
-  mobKills = 0;
-  pickUps = 0;
-  Main.HP = 3;
-  deathStatement = "Whoops, you died!";
+  Main.reset();
+  deathStatement = defaultDeathStatement;
   Main.posX = tS+h;
   Main.posY = tS+h;
   Main.oldX = tS+h;
   Main.oldY = tS+h;
 
   //reset status of all goons
-  goon1.posX = goonPosX[0][0]; goon1.posY = goonPosY[0][0];
-  goon2.posX = goonPosX[0][1]; goon1.posY = goonPosY[0][1];
-  goon3.posX = goonPosX[1][0]; goon1.posY = goonPosY[1][0];
+  goon1.posX = goonPosX[0][0]; 
+  goon1.posY = goonPosY[0][0];
+  goon2.posX = goonPosX[0][1]; 
+  goon1.posY = goonPosY[0][1];
+  goon3.posX = goonPosX[1][0]; 
+  goon1.posY = goonPosY[1][0];
   goon1.alive = true;
   goon2.alive = true;
   goon3.alive = true;
@@ -719,10 +706,14 @@ void hardReset()
   goon3.HP = 1;
 
   //reset status of all skeletons
-  skele1.posX = skeletonPosX[0][0]; skele1.posY = skeletonPosY[0][0];
-  skele2.posX = skeletonPosX[0][1]; skele2.posY = skeletonPosY[0][1];
-  skele3.posX = skeletonPosX[0][2]; skele3.posY = skeletonPosY[0][2];
-  skele4.posX = skeletonPosX[1][0]; skele4.posY = skeletonPosY[1][0];
+  skele1.posX = skeletonPosX[0][0]; 
+  skele1.posY = skeletonPosY[0][0];
+  skele2.posX = skeletonPosX[0][1]; 
+  skele2.posY = skeletonPosY[0][1];
+  skele3.posX = skeletonPosX[0][2]; 
+  skele3.posY = skeletonPosY[0][2];
+  skele4.posX = skeletonPosX[1][0]; 
+  skele4.posY = skeletonPosY[1][0];
   skele1.alive = true;
   skele2.alive = true;
   skele3.alive = true;
@@ -733,12 +724,14 @@ void hardReset()
   skele4.HP = 1;
 
   //reset status of all seekers
-  seeker.posX = seekerPosX; seeker.posY = seekerPosY;
+  seeker.posX = seekerPosX; 
+  seeker.posY = seekerPosY;
   seeker.alive = true;
   seeker.HP = 3;
 
   //reset status of all wraiths
-  wraith.posX = wraithPosX; wraith.posY = wraithPosY;
+  wraith.posX = wraithPosX; 
+  wraith.posY = wraithPosY;
 
   //activate all coins
   for (int i = 0; i < coinsL1.length; i++)
@@ -784,44 +777,45 @@ void hardReset()
 void softReset(int l)
 {
   moves = 0;
-  mobKills = 0;
-  pickUps = 0;
-  Main.HP = 3;
-  deathStatement = "Whoops, you died!";
+  Main.reset();
+  deathStatement = defaultDeathStatement;
 
   //position = level dependant
   switch (l)
   {
   case 0:
-  Main.posX = tS+h;
-  Main.posY = tS+h;
-  break;
-  
+    Main.posX = tS+h;
+    Main.posY = tS+h;
+    break;
+
   case 1:
-  Main.posX = tS+h;
-  Main.posY = tS+h;
-  break;
-  
+    Main.posX = tS+h;
+    Main.posY = tS+h;
+    break;
+
   case 2:
-  Main.posX = tS+h;
-  Main.posY = tS+h;
-  break;
-  
+    Main.posX = tS+h;
+    Main.posY = tS+h;
+    break;
+
   case 3:
-  Main.posX = tS+h;
-  Main.posY = tS*4+h;
-  break;
-  
+    Main.posX = tS+h;
+    Main.posY = tS*4+h;
+    break;
+
   case 4:
-  Main.posX = tS+h;
-  Main.posY = tS*4+h;
-  break;
+    Main.posX = tS+h;
+    Main.posY = tS*4+h;
+    break;
   }
 
   //reset status of all goons
-  goon1.posX = goonPosX[0][0]; goon1.posY = goonPosY[0][0];
-  goon2.posX = goonPosX[0][1]; goon1.posY = goonPosY[0][1];
-  goon3.posX = goonPosX[1][0]; goon1.posY = goonPosY[1][0];
+  goon1.posX = goonPosX[0][0]; 
+  goon1.posY = goonPosY[0][0];
+  goon2.posX = goonPosX[0][1]; 
+  goon1.posY = goonPosY[0][1];
+  goon3.posX = goonPosX[1][0]; 
+  goon1.posY = goonPosY[1][0];
   goon1.alive = true;
   goon2.alive = true;
   goon3.alive = true;
@@ -830,10 +824,14 @@ void softReset(int l)
   goon3.HP = 1;
 
   //reset status of all skeletons
-  skele1.posX = skeletonPosX[0][0]; skele1.posY = skeletonPosY[0][0];
-  skele2.posX = skeletonPosX[0][1]; skele2.posY = skeletonPosY[0][1];
-  skele3.posX = skeletonPosX[0][2]; skele3.posY = skeletonPosY[0][2];
-  skele4.posX = skeletonPosX[1][0]; skele4.posY = skeletonPosY[1][0];
+  skele1.posX = skeletonPosX[0][0]; 
+  skele1.posY = skeletonPosY[0][0];
+  skele2.posX = skeletonPosX[0][1]; 
+  skele2.posY = skeletonPosY[0][1];
+  skele3.posX = skeletonPosX[0][2]; 
+  skele3.posY = skeletonPosY[0][2];
+  skele4.posX = skeletonPosX[1][0]; 
+  skele4.posY = skeletonPosY[1][0];
   skele1.alive = true;
   skele2.alive = true;
   skele3.alive = true;
@@ -844,12 +842,14 @@ void softReset(int l)
   skele4.HP = 1;
 
   //reset status of all seekers
-  seeker.posX = seekerPosX; seeker.posY = seekerPosY;
+  seeker.posX = seekerPosX; 
+  seeker.posY = seekerPosY;
   seeker.alive = true;
   seeker.HP = 3;
 
   //reset status of all wraiths
-  wraith.posX = wraithPosX; wraith.posY = wraithPosY;
+  wraith.posX = wraithPosX; 
+  wraith.posY = wraithPosY;
 
   //activate all coins
   for (int i = 0; i < coinsL1.length; i++)
@@ -936,7 +936,7 @@ void draw()
       for (int i = 0; i < coinsL1.length; i++)
       {
         coinsL1[i].display(coinsL1[i].active);
-        coinsL1[i].pickUp(Main.posX, Main.posY);
+        coinsL1[i].pickUp(Main.posX, Main.posY, Main);
       }
 
       //mob stuff
@@ -989,7 +989,7 @@ void draw()
       for (int i = 0; i < coinsL2.length; i++)
       {
         coinsL2[i].display(coinsL2[i].active);
-        coinsL2[i].pickUp(Main.posX, Main.posY);
+        coinsL2[i].pickUp(Main.posX, Main.posY, Main);
       }
 
       //mob stuff
@@ -1000,7 +1000,7 @@ void draw()
       //player stuff
       Main.display(tS);
       Main.displayMeta(tS, Main.HP);
-      
+
       //specific case for seeker, important with explosion on top
       seeker.display(tS);
 
@@ -1034,7 +1034,7 @@ void draw()
       for (int i = 0; i < coinsL3.length; i++)
       {
         coinsL3[i].display(coinsL3[i].active);
-        coinsL3[i].pickUp(Main.posX, Main.posY);
+        coinsL3[i].pickUp(Main.posX, Main.posY, Main);
       }
 
       //mob stuff
@@ -1084,7 +1084,7 @@ void draw()
       for (int i = 0; i < coinsL4.length; i++)
       {
         coinsL4[i].display(coinsL4[i].active);
-        coinsL4[i].pickUp(Main.posX, Main.posY);
+        coinsL4[i].pickUp(Main.posX, Main.posY, Main);
       }
 
       //mob stuff
@@ -1126,7 +1126,7 @@ void draw()
       for (int i = 0; i < coinsL5.length; i++)
       {
         coinsL5[i].display(coinsL5[i].active);
-        coinsL5[i].pickUp(Main.posX, Main.posY);
+        coinsL5[i].pickUp(Main.posX, Main.posY, Main);
       }
 
       //mob stuff

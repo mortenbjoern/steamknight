@@ -39,12 +39,12 @@ class Coins {
     }
   } // end display()
 
-  void pickUp (float x, float y)
+  void pickUp (float x, float y, Player a)
   {
     if (posX == x && posY == y && active == true)
     {
       coin.play();
-      pickUps++;
+      a.pickUps++;
       score += value;
       active = false;
     }
