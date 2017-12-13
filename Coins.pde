@@ -15,7 +15,7 @@ class Coins {
     posY = y;
   }
 
-  void display (boolean active) 
+  void display () 
   {
     if (active)
     {
@@ -39,9 +39,9 @@ class Coins {
     }
   } // end display()
 
-  void pickUp (float x, float y, Player a)
+  void pickUp (Player a)
   {
-    if (posX == x && posY == y && active == true)
+    if (posX == a.posX && posY == a.posY && active == true)
     {
       coin.play();
       a.pickUps++;

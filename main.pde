@@ -935,8 +935,8 @@ void draw()
       //coin stuff
       for (int i = 0; i < coinsL1.length; i++)
       {
-        coinsL1[i].display(coinsL1[i].active);
-        coinsL1[i].pickUp(Main.posX, Main.posY, Main);
+        coinsL1[i].display();
+        coinsL1[i].pickUp(Main);
       }
 
       //mob stuff
@@ -947,7 +947,7 @@ void draw()
 
       //player stuff
       Main.display(tS);
-      Main.displayMeta(tS, Main.HP);
+      Main.displayMeta(h);
 
       //particle stuff
       for (int i = 0; i < rain.length; i++)
@@ -988,8 +988,8 @@ void draw()
       //coins stuff
       for (int i = 0; i < coinsL2.length; i++)
       {
-        coinsL2[i].display(coinsL2[i].active);
-        coinsL2[i].pickUp(Main.posX, Main.posY, Main);
+        coinsL2[i].display();
+        coinsL2[i].pickUp(Main);
       }
 
       //mob stuff
@@ -999,7 +999,7 @@ void draw()
 
       //player stuff
       Main.display(tS);
-      Main.displayMeta(tS, Main.HP);
+      Main.displayMeta(h);
 
       //specific case for seeker, important with explosion on top
       seeker.display(tS);
@@ -1033,8 +1033,8 @@ void draw()
       //coin stuff
       for (int i = 0; i < coinsL3.length; i++)
       {
-        coinsL3[i].display(coinsL3[i].active);
-        coinsL3[i].pickUp(Main.posX, Main.posY, Main);
+        coinsL3[i].display();
+        coinsL3[i].pickUp(Main);
       }
 
       //mob stuff
@@ -1050,7 +1050,7 @@ void draw()
 
       //player stuff
       Main.display(tS);
-      Main.displayMeta(tS, Main.HP);
+      Main.displayMeta(h);
 
       //particle stuff
       break;
@@ -1083,8 +1083,8 @@ void draw()
       //coin stuff
       for (int i = 0; i < coinsL4.length; i++)
       {
-        coinsL4[i].display(coinsL4[i].active);
-        coinsL4[i].pickUp(Main.posX, Main.posY, Main);
+        coinsL4[i].display();
+        coinsL4[i].pickUp(Main);
       }
 
       //mob stuff
@@ -1094,7 +1094,7 @@ void draw()
 
       //player
       Main.display(tS);
-      Main.displayMeta(tS, Main.HP);
+      Main.displayMeta(h);
 
       //particle stuff
       break;
@@ -1125,8 +1125,8 @@ void draw()
       //coin stuff
       for (int i = 0; i < coinsL5.length; i++)
       {
-        coinsL5[i].display(coinsL5[i].active);
-        coinsL5[i].pickUp(Main.posX, Main.posY, Main);
+        coinsL5[i].display();
+        coinsL5[i].pickUp(Main);
       }
 
       //mob stuff
@@ -1134,7 +1134,7 @@ void draw()
 
       //player stuff
       Main.display(tS);
-      Main.displayMeta(tS, Main.HP);
+      Main.displayMeta(h);
 
       //particle stuff
       for (int i = 0; i < embers.length; i++)

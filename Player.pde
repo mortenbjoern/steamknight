@@ -69,12 +69,12 @@ class Player {
     }
   } // end display()
 
-  void displayMeta (float x, int y) 
+  void displayMeta (float x) 
   {
     //textFont();
     //display hp
     imageMode(CENTER);
-    PImage frame = hearts.get(0, 0 + (int(x/4)*(y-1)), 48, 16);
+    PImage frame = hearts.get(0, 0 + int(x/2)*(HP-1), 48, 16);
     image(frame, 400, 606);
 
     //display current level
@@ -360,7 +360,6 @@ class Player {
   
   void reset() {
     HP = 3;
-    println(pickUps);
     pickUps = 0;
     mobKills = 0;
     frame = 0;
