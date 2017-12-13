@@ -102,94 +102,31 @@ void setup()
   }
 
   //declare traps for each level
-  for (int i = 0; i < trapsL1.length; i++)
-  {
-    trapsL1[i] = new Trap(trapPosX[0][i], trapPosY[0][i]);
-  }
-  for (int i = 0; i < trapsL2.length; i++)
-  {
-    trapsL2[i] = new Trap(trapPosX[1][i], trapPosY[1][i]);
-  }
-  /*
-  for (int i = 0; i < trapsL3.length; i++)
-   {
-   trapsL3[i] = new Trap(trapPosX[2][i], trapPosY[2][i]);
-   }
-   */
-  for (int i = 0; i < trapsL4.length; i++)
-  {
-    trapsL4[i] = new Trap(trapPosX[2][i], trapPosY[2][i]); //replace with "3" in case we use traps in level 3
-  }
-  for (int i = 0; i < trapsL5.length; i++)
-  {
-    trapsL5[i] = new Trap(trapPosX[3][i], trapPosY[3][i]); //replace with "4" in case we use traps in level 3
-  }
+  declareTraps(trapsL1, 0);
+  declareTraps(trapsL2, 1);
+  declareTraps(trapsL4, 2);
+  declareTraps(trapsL5, 3);
 
   //declare pits for each level
-  for (int i = 0; i < pitsL1.length; i++)
-  {
-    pitsL1[i] = new Pit(pitPosX[0][i], pitPosY[0][i]);
-  }
-  for (int i = 0; i < pitsL2.length; i++)
-  {
-    pitsL2[i] = new Pit(pitPosX[1][i], pitPosY[1][i]);
-  }
-  for (int i = 0; i < pitsL3.length; i++)
-  {
-    pitsL3[i] = new Pit(pitPosX[2][i], pitPosY[2][i]);
-  }
-  for (int i = 0; i < pitsL4.length; i++)
-  {
-    pitsL4[i] = new Pit(pitPosX[3][i], pitPosY[3][i]);
-  }
-  for (int i = 0; i < pitsL5.length; i++)
-  {
-    pitsL5[i] = new Pit(pitPosX[4][i], pitPosY[4][i]);
-  }
+  declarePits(pitsL1, 0);
+  declarePits(pitsL2, 1);
+  declarePits(pitsL3, 2);
+  declarePits(pitsL4, 3);
+  declarePits(pitsL5, 4);
 
   //declare debris for each level
-  for (int i = 0; i < debrisL1.length; i++)
-  {
-    debrisL1[i] = new Debris(debrisPosX[0][i], debrisPosY[0][i]);
-  }
-  for (int i = 0; i < debrisL2.length; i++)
-  {
-    debrisL2[i] = new Debris(debrisPosX[1][i], debrisPosY[1][i]);
-  }
-  for (int i = 0; i < debrisL3.length; i++)
-  {
-    debrisL3[i] = new Debris(debrisPosX[2][i], debrisPosY[2][i]);
-  }
-  for (int i = 0; i < debrisL4.length; i++)
-  {
-    debrisL4[i] = new Debris(debrisPosX[3][i], debrisPosY[3][i]);
-  }
-  for (int i = 0; i < debrisL5.length; i++)
-  {
-    debrisL5[i] = new Debris(debrisPosX[4][i], debrisPosY[4][i]);
-  }
+  declareDebris(debrisL1, 0);
+  declareDebris(debrisL2, 1);
+  declareDebris(debrisL3, 2);
+  declareDebris(debrisL4, 3);
+  declareDebris(debrisL5, 4);
 
   //declare coins for each level
-  for (int i = 0; i < coinsL1.length; i++)
-  {
-    coinsL1[i] = new Coins(coinsPosX[0][i], coinsPosY[0][i]);
-  }
-  for (int i = 0; i < coinsL2.length; i++)
-  {
-    coinsL2[i] = new Coins(coinsPosX[1][i], coinsPosY[1][i]);
-  }
-  for (int i = 0; i < coinsL3.length; i++)
-  {
-    coinsL3[i] = new Coins(coinsPosX[2][i], coinsPosY[2][i]);
-  }
-  for (int i = 0; i < coinsL4.length; i++)
-  {
-    coinsL4[i] = new Coins(coinsPosX[3][i], coinsPosY[3][i]);
-  }
-  for (int i = 0; i < coinsL5.length; i++)
-  {
-    coinsL5[i] = new Coins(coinsPosX[4][i], coinsPosY[4][i]);
-  }
+  declareCoins(coinsL1, 0);
+  declareCoins(coinsL2, 1);
+  declareCoins(coinsL3, 2);
+  declareCoins(coinsL4, 3);
+  declareCoins(coinsL5, 4);
 
   //declare mobs for each level
   goon1 = new Goon(goonPosX[0][0], goonPosY[0][0]);
@@ -203,7 +140,39 @@ void setup()
   wraith = new Wraith(wraithPosX, wraithPosY);
 }
 
-//functions
+//declaration functions
+
+void declareCoins (Coins [] x, int y)
+{
+  for (int i = 0; i < x.length; i++)
+  {
+    x[i] = new Coins(coinsPosX[y][i], coinsPosY[y][i]);
+  }
+}
+
+void declareDebris (Debris [] x, int y)
+{
+  for (int i = 0; i < x.length; i++)
+  {
+    x[i] = new Debris(debrisPosX[y][i], debrisPosY[y][i]);
+  }
+}
+
+void declarePits (Pit [] x, int y)
+{
+  for (int i = 0; i < x.length; i++)
+  {
+    x[i] = new Pit(pitPosX[y][i], pitPosY[y][i]);
+  }
+}
+
+void declareTraps (Trap [] x, int y)
+{
+  for (int i = 0; i < x.length; i++)
+  {
+    x[i] = new Trap(trapPosX[y][i], trapPosY[y][i]);
+  }
+}
 
 void keyPressed()
 {
