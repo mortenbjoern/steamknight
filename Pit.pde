@@ -2,8 +2,8 @@ class Pit {
   //pit variables
   float posX;
   float posY;
-  int frame = 0;
-  int maxF = 4;
+  byte frame = 0;
+  byte maxF = 4;
   float everyMillis = 250;
   int ticksLast = millis();
   PImage pit = loadImage("assets/pit.png");

@@ -4,13 +4,13 @@ class Seeker {
   float posY;
   float oldX;
   float oldY;
-  int HP = 3;
+  byte HP = 3;
   boolean canMoveUp = true;
   boolean canMoveDown = true;
   boolean canMoveRight = true;
   boolean canMoveLeft = true;
-  int frame = 0;
-  int maxF = 8;
+  byte frame = 0;
+  byte maxF = 8;
   float everyMillis = 250;
   int ticksLast = millis();
   PImage seeker = loadImage("assets/seeker.png");

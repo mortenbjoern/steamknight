@@ -14,16 +14,16 @@ class Player {
   float posY;
   
   //player condition
-  int HP = 3;
-  float maxHP = 3;
-  int mobKills = 0;
-  int pickUps = 0;
+  byte HP = 3;
+  byte maxHP = 3;
+  byte mobKills = 0;
+  byte pickUps = 0;
   
   //player animation
-  int frame = 0;
-  int maxF = 4;
-  int frame1 = 0;
-  int maxF1 = 10;
+  byte frame = 0;
+  byte maxF = 4;
+  byte frame1 = 0;
+  byte maxF1 = 10;
   float everyMillis = 250;
   float everyMillisAttack = 62.5;
   int ticksLast = millis();

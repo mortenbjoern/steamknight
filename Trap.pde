@@ -1,7 +1,7 @@
 class Trap {
   float posX;
   float posY;
-  int trapCounter;
+  byte trapCounter;
   PImage spiketrap = loadImage("assets/spikes.png");
   PImage lavatrap = loadImage("assets/lava_trap.png");
 
@@ -9,7 +9,7 @@ class Trap {
   {
     posX = x;
     posY = y;
-    trapCounter = round(random(2));
+    trapCounter = byte(round(random(2)));
   }
 
   void setPos (float x, float y) {

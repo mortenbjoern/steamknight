@@ -19,11 +19,11 @@ String[] HiScoreName;
 String[] scoring;
 char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'æ', 'ø', 'å', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Æ', 'Ø', 'Å', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 String[] initials = {"_", "_", "_"};
-int initialsPos = 0;
+byte initialsPos = 0;
 String name = join(initials, "");
 
 //global variables, screens
-int screen = 0;
+byte screen = 0;
 PFont bitmapFont;
 PFont cleanFont;
 PImage menuScreen;
@@ -34,7 +34,7 @@ float tS = 64; //tS = tileSize;
 float h = tS/2; //h = half a tileSize;
 color particleColors [] = {color(3, 74, 236), color(207, 16, 32)};
 int score = 0;
-int level = 0;
+byte level = 0;
 
 //level dependant variabels
 int moves = 0;
@@ -418,8 +418,6 @@ void calcScore()
 
 void checkConditions(int l)
 {
-  //do this regardless of level
-  Main.checkHealth();
   switch (l)
   {
 
@@ -642,6 +640,9 @@ void checkConditions(int l)
 
     break;
   }
+  
+  //do this regardless of level
+  Main.checkHealth();
 }
 
 void hardReset()
@@ -720,19 +721,19 @@ void hardReset()
   //shuffle all trapCounter values
   for (int i = 0; i < trapsL1.length; i++)
   {
-    trapsL1[i].trapCounter = round(random(2));
+    trapsL1[i].trapCounter = byte(round(random(2)));
   }
   for (int i = 0; i < trapsL2.length; i++)
   {
-    trapsL2[i].trapCounter = round(random(2));
+    trapsL2[i].trapCounter = byte(round(random(2)));
   }
   for (int i = 0; i < trapsL4.length; i++)
   {
-    trapsL4[i].trapCounter = round(random(2));
+    trapsL4[i].trapCounter = byte(round(random(2)));
   }
   for (int i = 0; i < trapsL5.length; i++)
   {
-    trapsL5[i].trapCounter = round(random(2));
+    trapsL5[i].trapCounter = byte(round(random(2)));
   }
 }
 
@@ -810,19 +811,19 @@ void softReset()
   //shuffle all trapCounter values
   for (int i = 0; i < trapsL1.length; i++)
   {
-    trapsL1[i].trapCounter = round(random(2));
+    trapsL1[i].trapCounter = byte(round(random(2)));
   }
   for (int i = 0; i < trapsL2.length; i++)
   {
-    trapsL2[i].trapCounter = round(random(2));
+    trapsL2[i].trapCounter = byte(round(random(2)));
   }
   for (int i = 0; i < trapsL4.length; i++)
   {
-    trapsL4[i].trapCounter = round(random(2));
+    trapsL4[i].trapCounter = byte(round(random(2)));
   }
   for (int i = 0; i < trapsL5.length; i++)
   {
-    trapsL5[i].trapCounter = round(random(2));
+    trapsL5[i].trapCounter = byte(round(random(2)));
   }
 }
 
