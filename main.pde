@@ -240,7 +240,7 @@ void keyPressed()
       } else
       {
         Main.posY -= tS;
-        afterMoves(level);
+        afterMoves();
       }
     }
     if (keyCode == DOWN)
@@ -251,7 +251,7 @@ void keyPressed()
       } else
       {
         Main.posY += tS;
-        afterMoves(level);
+        afterMoves();
       }
     }
     if (keyCode == RIGHT)
@@ -262,7 +262,7 @@ void keyPressed()
       } else
       {
         Main.posX += tS;
-        afterMoves(level);
+        afterMoves();
       }
     }
     if (keyCode == LEFT)
@@ -273,7 +273,7 @@ void keyPressed()
       } else
       {
         Main.posX -= tS;
-        afterMoves(level);
+        afterMoves();
       }
     }
 
@@ -297,7 +297,7 @@ void keyPressed()
     {
       Main.attackD(goon1, goon2, goon3, seeker, skele1, skele2, skele3, skele4);
     }
-    afterMoves(level);
+    afterMoves();
     checkConditions(level);
     Main.update();
   }
@@ -318,10 +318,10 @@ void displayMap (int level)
   stroke(1);
 }
 
-void afterMoves (int l)
+void afterMoves ()
 {
   moves ++;
-  switch(l) {
+  switch(level) {
   case 0:
 
     //entity moves
@@ -332,14 +332,9 @@ void afterMoves (int l)
 
     for (int i = 0; i < trapsL1.length; i++)
     {
-      trapsL1[i].trapCounter++;
+      trapsL1[i].count();
     }
-    for (int i = 0; i < trapsL1.length; i++)
-    {
-      if (trapsL1[i].trapCounter > 2) {
-        trapsL1[i].trapCounter = 0;
-      }
-    }
+    
     break;
 
   case 1:
@@ -353,14 +348,9 @@ void afterMoves (int l)
     //trap progression
     for (int i = 0; i < trapsL2.length; i++)
     {
-      trapsL2[i].trapCounter++;
+      trapsL2[i].count();
     }
-    for (int i = 0; i < trapsL2.length; i++)
-    {
-      if (trapsL2[i].trapCounter > 2) {
-        trapsL2[i].trapCounter = 0;
-      }
-    }
+    
     break;
 
   case 2:
@@ -385,26 +375,14 @@ void afterMoves (int l)
 
     for (int i = 0; i < trapsL4.length; i++)
     {
-      trapsL4[i].trapCounter++;
-    }
-    for (int i = 0; i < trapsL4.length; i++)
-    {
-      if (trapsL4[i].trapCounter > 2) {
-        trapsL4[i].trapCounter = 0;
-      }
+      trapsL4[i].count();
     }
     break;
 
   case 4:
     for (int i = 0; i < trapsL5.length; i++)
     {
-      trapsL5[i].trapCounter++;
-    }
-    for (int i = 0; i < trapsL5.length; i++)
-    {
-      if (trapsL5[i].trapCounter > 2) {
-        trapsL5[i].trapCounter = 0;
-      }
+      trapsL5[i].count();
     }
     break;
   }
@@ -455,7 +433,6 @@ void checkConditions(int l)
       goon1.alive = false;
     }
     if (goon2.HP <= 0) {
-
       goon2.alive = false;
     }
 
@@ -856,7 +833,7 @@ void draw()
       //trap stuff
       for (int i = 0; i < trapsL1.length; i++)
       {
-        trapsL1[i].display(tS, trapsL1[i].trapCounter);
+        trapsL1[i].display(tS);
       }
 
       //pit stuff
@@ -909,7 +886,7 @@ void draw()
       //trap stuff
       for (int i = 0; i < trapsL2.length; i++)
       {
-        trapsL2[i].display(tS, trapsL2[i].trapCounter);
+        trapsL2[i].display(tS);
       }
 
       //pit stuff
@@ -1005,7 +982,7 @@ void draw()
       //trap stuff 
       for (int i = 0; i < trapsL4.length; i++)
       {
-        trapsL4[i].display(tS, trapsL4[i].trapCounter);
+        trapsL4[i].display(tS);
       }
 
       //pit stuff
@@ -1048,7 +1025,7 @@ void draw()
       //trap stuff
       for (int i = 0; i < trapsL5.length; i++)
       {
-        trapsL5[i].display(tS, trapsL5[i].trapCounter);
+        trapsL5[i].display(tS);
       }
 
       //pit stuff
