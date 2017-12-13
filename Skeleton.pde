@@ -416,6 +416,13 @@ class Skeleton {
     alive = true;
   }
   
+  void checkHealth ()
+  {
+    if (HP <= 0) {
+      alive = false;
+    }
+  }
+  
   void revive ()
   {
     if(alive == false && revivalCounter < 5)

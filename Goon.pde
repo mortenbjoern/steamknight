@@ -397,6 +397,13 @@ class Goon {
     HP = 1;
     alive = true;
   }
+  
+  void checkHealth ()
+  {
+    if (HP <= 0) {
+      alive = false;
+    }
+  }
 
   boolean colGoon (Goon z)
   {

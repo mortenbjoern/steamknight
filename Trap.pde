@@ -61,6 +61,42 @@ class Trap {
       trapCounter = 0;
     }
   }
+  
+  void playerOn (Player a)
+  {
+   if (posX == a.posX && posY == a.posY && trapCounter == 2)
+    {
+      deathStatement = dByTrap;
+      a.HP -= 1;
+    }
+  }
+  
+  void goonOn (Goon a)
+  {
+   if (posX == a.posX && posY == a.posY && trapCounter == 2)
+    {
+      deathStatement = dByTrap;
+      a.HP -= 1;
+    }
+  }
+  
+  void seekerOn (Seeker a)
+  {
+   if (posX == a.posX && posY == a.posY && trapCounter == 2)
+    {
+      deathStatement = dByTrap;
+      a.HP -= 1;
+    }
+  }
+  
+  void skeleOn (Skeleton a)
+  {
+   if (posX == a.posX && posY == a.posY && trapCounter == 2)
+    {
+      deathStatement = dByTrap;
+      a.HP -= 1;
+    }
+  }
 
   float getX ()
   {

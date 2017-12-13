@@ -334,6 +334,24 @@ class Seeker {
     HP = 3;
     alive = true;
   }
+  
+  void checkHealth ()
+  {
+    if (HP <= 0) {
+      alive = false;
+    }
+  }
+  
+  void explode (Player a)
+  {
+    if (posX == a.posX && posY == a.posY && alive)
+    {
+      alive = false;
+      frame = 0; //improves deavth animation
+      deathStatement = dBySeeker;
+      a.HP -= 2;
+    }
+  }
 
   boolean colGoon (Goon z)
   {
