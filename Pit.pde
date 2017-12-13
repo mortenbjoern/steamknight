@@ -64,6 +64,15 @@ class Pit {
       break;
     }
   }
+  
+  void checkPlayer (Player a)
+  {
+    if (a.posX == posX && a.posY == posY)
+      {
+        deathStatement = dByPit;
+        screen = 2;
+      }
+  }
 
   float getX ()
   {
