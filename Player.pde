@@ -10,6 +10,8 @@ class Player {
   boolean canMoveLeft = true;
   boolean isAttacking = false;
   float maxHP = 3;
+  int mobKills = 0;
+  int pickUps = 0;
   int HP = 3;
   int frame = 0;
   int maxF = 4;
@@ -67,12 +69,12 @@ class Player {
     }
   } // end display()
 
-  void displayMeta (float x, int y) 
+  void displayMeta (float x) 
   {
     //textFont();
     //display hp
     imageMode(CENTER);
-    PImage frame = hearts.get(0, 0 + (int(x/4)*(y-1)), 48, 16);
+    PImage frame = hearts.get(0, 0 + int(x/2)*(HP-1), 48, 16);
     image(frame, 400, 606);
 
     //display current level
@@ -103,48 +105,56 @@ class Player {
       a.HP -= 1;
       if (a.HP <= 0) {
         a.alive = false;
+        mobKills++;
       }
     } else if (posX-tS == b.posX && posY == b.posY)
     {
       b.HP -= 1;
       if (b.HP <= 0) {
         b.alive = false;
+        mobKills++;
       }
     } else if (posX-tS == c.posX && posY == c.posY)
     {
       c.HP -= 1;
       if (c.HP <= 0) {
         c.alive = false;
+        mobKills++;
       }
     } else if (posX-tS == c.posX && posY == d.posY)
     {
       d.HP -= 1;
       if (d.HP <= 0) {
         d.alive = false;
+        mobKills++;
       }
     } else if (posX-tS == d.posX && posY == e.posY)
     {
       e.HP -= 1;
       if (e.HP <= 0) {
         e.alive = false;
+        mobKills++;
       }
     } else if (posX-tS == f.posX && posY == f.posY)
     {
       f.HP -= 1;
       if (f.HP <= 0) {
         f.alive = false;
+        mobKills++;
       }
     } else if (posX-tS == g.posX && posY == g.posY)
     {
       g.HP -= 1;
       if (g.HP <= 0) {
         g.alive = false;
+        mobKills++;
       }
     } else if (posX-tS == h.posX && posY == h.posY)
     {
       h.HP -= 1;
       if (h.HP <= 0) {
         h.alive = false;
+        mobKills++;
       }
     }
   }
@@ -156,47 +166,58 @@ class Player {
     if (posX+tS == a.posX && posY == a.posY)
     {
       a.HP -= 1;
+      if (a.HP <= 0) {
+        a.alive = false;
+        mobKills++;
+      }
     } else if (posX+tS == b.posX && posY == b.posY)
     {
       b.HP -= 1;
       if (b.HP <= 0) {
         b.alive = false;
+        mobKills++;
       }
     } else if (posX+tS == c.posX && posY == c.posY)
     {
       c.HP -= 1;
       if (c.HP <= 0) {
         c.alive = false;
+        mobKills++;
       }
     } else if (posX+tS == d.posX && posY == d.posY)
     {
       d.HP -= 1;
       if (d.HP <= 0) {
         d.alive = false;
+        mobKills++;
       }
     } else if (posX+tS == e.posX && posY == e.posY)
     {
       e.HP -= 1;
       if (e.HP <= 0) {
         e.alive = false;
+        mobKills++;
       }
     } else if (posX+tS == f.posX && posY == f.posY)
     {
       f.HP -= 1;
       if (f.HP <= 0) {
         f.alive = false;
+        mobKills++;
       }
     } else if (posX+tS == g.posX && posY == g.posY)
     {
       g.HP -= 1;
       if (g.HP <= 0) {
         g.alive = false;
+        mobKills++;
       }
     } else if (posX+tS == h.posX && posY == h.posY)
     {
       h.HP -= 1;
       if (h.HP <= 0) {
         h.alive = false;
+        mobKills++;
       }
     }
   }
@@ -208,47 +229,58 @@ class Player {
     if (posY-tS == a.posY && posX == a.posX)
     {
       a.HP -= 1;
+      if (a.HP <= 0) {
+        a.alive = false;
+        mobKills++;
+      }
     } else if (posY-tS == b.posY && posX == b.posX)
     {
       b.HP -= 1;
       if (b.HP <= 0) {
         b.alive = false;
+        mobKills++;
       }
     } else if (posY-tS == c.posY && posX == c.posX)
     {
       c.HP -= 1;
       if (c.HP <= 0) {
         c.alive = false;
+        mobKills++;
       }
     } else if (posY-tS == d.posY && posX == d.posX)
     {
       d.HP -= 1;
       if (d.HP <= 0) {
         d.alive = false;
+        mobKills++;
       }
     } else if (posY-tS == e.posY && posX == e.posX)
     {
       e.HP -= 1;
       if (e.HP <= 0) {
         e.alive = false;
+        mobKills++;
       }
     } else if (posY-tS == f.posY && posX == f.posX)
     {
       f.HP -= 1;
       if (f.HP <= 0) {
         f.alive = false;
+        mobKills++;
       }
     } else if (posY-tS == g.posY && posX == g.posX)
     {
       g.HP -= 1;
       if (g.HP <= 0) {
         g.alive = false;
+        mobKills++;
       }
     } else if (posY-tS == h.posY && posX == h.posX)
     {
       h.HP -= 1;
       if (h.HP <= 0) {
         h.alive = false;
+        mobKills++;
       }
     }
   }
@@ -262,48 +294,56 @@ class Player {
       a.HP -= 1;
       if (a.HP <= 0) {
         a.alive = false;
+        mobKills++;
       }
     } else if (posY+tS == b.posY && posX == b.posX)
     {
       b.HP -= 1;
       if (b.HP <= 0) {
         b.alive = false;
+        mobKills++;
       }
     } else if (posY+tS == c.posY && posX == c.posX)
     {
       c.HP -= 1;
       if (c.HP <= 0) {
         c.alive = false;
+        mobKills++;
       }
     } else if (posY+tS == d.posY && posX == d.posX)
     {
       d.HP -= 1;
       if (d.HP <= 0) {
         d.alive = false;
+        mobKills++;
       }
     } else if (posY+tS == e.posY && posX == e.posX)
     {
       e.HP -= 1;
       if (e.HP <= 0) {
         e.alive = false;
+        mobKills++;
       }
     } else if (posY+tS == f.posY && posX == f.posX)
     {
       f.HP -= 1;
       if (f.HP <= 0) {
         f.alive = false;
+        mobKills++;
       }
     } else if (posY+tS == g.posY && posX == g.posX)
     {
       g.HP -= 1;
       if (g.HP <= 0) {
         g.alive = false;
+        mobKills++;
       }
     } else if (posY+tS == h.posY && posX == h.posX)
     {
       h.HP -= 1;
       if (h.HP <= 0) {
         h.alive = false;
+        mobKills++;
       }
     }
   }
@@ -316,6 +356,14 @@ class Player {
     canMoveDown = true;
     canMoveRight = true;
     canMoveLeft = true;
+  }
+  
+  void reset() {
+    HP = 3;
+    pickUps = 0;
+    mobKills = 0;
+    frame = 0;
+    frame1 = 0;
   }
 
   boolean checkColR (/* float x, float y */)

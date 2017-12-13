@@ -1,6 +1,7 @@
 /* === FUNCTIONS FOR DISPLAYING THE MENUS AND SCREENS, OTHER THAN THE MAIN GAME ===*/
 
-String deathStatement = "Whoops, you died!"; //default death statement
+String deathStatement = "Whoops, you died!";
+String defaultDeathStatement = "Whoops, you died!"; //default death statement
 String dByPit = "Don't go there another time!";
 String dBySeeker = "Kabooom goes the knight!";
 String dByGoon = "Argh, the pumpkin-face got you!";
