@@ -1,5 +1,19 @@
 /* === FUNCTIONS FOR DISPLAYING THE MENUS AND SCREENS, OTHER THAN THE MAIN GAME ===*/
 
+PImage menuScreen; //variable for loading in menu background
+PImage dungeon; //variable for loading in level backgrounds
+PFont bitmapFont; //variable for loading in menu font
+PFont cleanFont; //variable for loading in standard font
+
+//variables for highscores
+String[] HiScoreName;
+String[] scoring;
+char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'æ', 'ø', 'å', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Æ', 'Ø', 'Å', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+String[] initials = {"_", "_", "_"};
+byte initialsPos = 0;
+String name = join(initials, "");
+
+//death statements to be displayed on death screen (2) 
 String deathStatement = "Whoops, you died!";
 String defaultDeathStatement = "Whoops, you died!"; //default death statement
 String dByPit = "Don't go there another time!";

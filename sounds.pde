@@ -1,3 +1,8 @@
+//Libraries to be imported
+import processing.sound.*;
+
+boolean playmusic = true;
+
 //Sound loading repository
 SoundFile menu;
 SoundFile coin;

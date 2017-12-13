@@ -1,46 +1,24 @@
 /*
-
- Authors:    Morten Bjørn & Jimmy Mikkelsen
- Date:       December 11th 2017
- Exercise:   #39
+ Authors:
+ Morten Bjørn & Jimmy Mikkelsen
  
  Description: 
  Steam Knight is a top down turn-based game, drawing inspiration from old dungeon crawlers.
  The object of the game is to collect enough coins and defeat enough monsters to get a highscore. 
  here are five levels in the game, each with their own theme (forest, dungeon, catacombs, cursed church, hell).
  
+ v1.0.2 — DEC 2017
  */
 
-//Libraries to be imported
-import processing.sound.*;
-
-//variables for highscores
-String[] HiScoreName;
-String[] scoring;
-char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'æ', 'ø', 'å', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Æ', 'Ø', 'Å', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-String[] initials = {"_", "_", "_"};
-byte initialsPos = 0;
-String name = join(initials, "");
-
-//global variables, screens
-byte screen = 0;
-PFont bitmapFont;
-PFont cleanFont;
-PImage menuScreen;
-boolean playmusic = true;
-
-//global variables, in-game
+//super important global variables
 float tS = 64; //tS = tileSize;
 float h = tS/2; //h = half a tileSize;
-color particleColors [] = {color(3, 74, 236), color(207, 16, 32)};
-int score = 0;
+byte screen = 0;
 byte level = 0;
-
-//level dependant variabels
-int moves = 0;
+int moves = 0; //consider moving to player class
+int score = 0;
 
 //declare important stuff
-PImage dungeon;
 Player Main;
 
 //declare particles
@@ -57,7 +35,6 @@ Debris debrisL5 [] = new Debris[15];
 //declare traps
 Trap trapsL1 [] = new Trap[5];
 Trap trapsL2 [] = new Trap[3];
-//Trap trapsL3 [] = new Trap[0];
 Trap trapsL4 [] = new Trap[7];
 Trap trapsL5 [] = new Trap[42];
 
@@ -85,22 +62,25 @@ Skeleton skele2;
 Skeleton skele3;
 Skeleton skele4;
 Wraith wraith;
-//Boss boss;
 
 void setup()
 {
-  size(1152, 640);
+  size(1152, 640); //define window size
+  
+  //load in highscore list
   HiScoreName = loadStrings("hiscorenames.txt");
   scoring = loadStrings("hiscores.txt");
+  
+  //load in global images
   dungeon = loadImage("assets/dungeon.png");
+  menuScreen = loadImage("assets/startScreen.png");
 
+  //declare and set fonts
   bitmapFont = createFont("Pixeled.ttf", 15);
-
   cleanFont = createFont("Roboto-Medium.ttf", 15);
   textFont(cleanFont);
 
-  menuScreen = loadImage("assets/startScreen.png");
-
+  //declare sounds
   menu = new SoundFile(this, "0.mp3");
   clik = new SoundFile(this, "clickMenu.wav");
   pres = new SoundFile(this, "letterTick.wav");
@@ -110,110 +90,39 @@ void setup()
   move = new SoundFile(this, "move.wav");
   goonie = new SoundFile(this, "goon.wav");
 
-  Main = new Player();
-
   //declare particles
-  for (int i = 0; i < rain.length; i++)
-  {
-    rain[i] = new Particles(particleColors[0], random(-1, 1), 240, random(-720));
-  }
-
-  for (int i = 0; i < embers.length; i++)
-  {
-    embers[i] = new Particles(particleColors[1], random(-10, 10), 20, random(height+50));
-  }
+  declareParticles(rain, color(3, 74, 236), random(-1, 1), 240, random(-720));
+  declareParticles(embers, color(207, 16, 32), random(-10, 10), 20, random(height+50));
 
   //declare traps for each level
-  for (int i = 0; i < trapsL1.length; i++)
-  {
-    trapsL1[i] = new Trap(trapPosX[0][i], trapPosY[0][i]);
-  }
-  for (int i = 0; i < trapsL2.length; i++)
-  {
-    trapsL2[i] = new Trap(trapPosX[1][i], trapPosY[1][i]);
-  }
-  /*
-  for (int i = 0; i < trapsL3.length; i++)
-   {
-   trapsL3[i] = new Trap(trapPosX[2][i], trapPosY[2][i]);
-   }
-   */
-  for (int i = 0; i < trapsL4.length; i++)
-  {
-    trapsL4[i] = new Trap(trapPosX[2][i], trapPosY[2][i]); //replace with "3" in case we use traps in level 3
-  }
-  for (int i = 0; i < trapsL5.length; i++)
-  {
-    trapsL5[i] = new Trap(trapPosX[3][i], trapPosY[3][i]); //replace with "4" in case we use traps in level 3
-  }
+  declareTraps(trapsL1, 0);
+  declareTraps(trapsL2, 1);
+  declareTraps(trapsL4, 2);
+  declareTraps(trapsL5, 3);
 
   //declare pits for each level
-  for (int i = 0; i < pitsL1.length; i++)
-  {
-    pitsL1[i] = new Pit(pitPosX[0][i], pitPosY[0][i]);
-  }
-  for (int i = 0; i < pitsL2.length; i++)
-  {
-    pitsL2[i] = new Pit(pitPosX[1][i], pitPosY[1][i]);
-  }
-  for (int i = 0; i < pitsL3.length; i++)
-  {
-    pitsL3[i] = new Pit(pitPosX[2][i], pitPosY[2][i]);
-  }
-  for (int i = 0; i < pitsL4.length; i++)
-  {
-    pitsL4[i] = new Pit(pitPosX[3][i], pitPosY[3][i]);
-  }
-  for (int i = 0; i < pitsL5.length; i++)
-  {
-    pitsL5[i] = new Pit(pitPosX[4][i], pitPosY[4][i]);
-  }
+  declarePits(pitsL1, 0);
+  declarePits(pitsL2, 1);
+  declarePits(pitsL3, 2);
+  declarePits(pitsL4, 3);
+  declarePits(pitsL5, 4);
 
   //declare debris for each level
-  for (int i = 0; i < debrisL1.length; i++)
-  {
-    debrisL1[i] = new Debris(debrisPosX[0][i], debrisPosY[0][i]);
-  }
-  for (int i = 0; i < debrisL2.length; i++)
-  {
-    debrisL2[i] = new Debris(debrisPosX[1][i], debrisPosY[1][i]);
-  }
-  for (int i = 0; i < debrisL3.length; i++)
-  {
-    debrisL3[i] = new Debris(debrisPosX[2][i], debrisPosY[2][i]);
-  }
-  for (int i = 0; i < debrisL4.length; i++)
-  {
-    debrisL4[i] = new Debris(debrisPosX[3][i], debrisPosY[3][i]);
-  }
-  for (int i = 0; i < debrisL5.length; i++)
-  {
-    debrisL5[i] = new Debris(debrisPosX[4][i], debrisPosY[4][i]);
-  }
+  declareDebris(debrisL1, 0);
+  declareDebris(debrisL2, 1);
+  declareDebris(debrisL3, 2);
+  declareDebris(debrisL4, 3);
+  declareDebris(debrisL5, 4);
 
   //declare coins for each level
-  for (int i = 0; i < coinsL1.length; i++)
-  {
-    coinsL1[i] = new Coins(coinsPosX[0][i], coinsPosY[0][i]);
-  }
-  for (int i = 0; i < coinsL2.length; i++)
-  {
-    coinsL2[i] = new Coins(coinsPosX[1][i], coinsPosY[1][i]);
-  }
-  for (int i = 0; i < coinsL3.length; i++)
-  {
-    coinsL3[i] = new Coins(coinsPosX[2][i], coinsPosY[2][i]);
-  }
-  for (int i = 0; i < coinsL4.length; i++)
-  {
-    coinsL4[i] = new Coins(coinsPosX[3][i], coinsPosY[3][i]);
-  }
-  for (int i = 0; i < coinsL5.length; i++)
-  {
-    coinsL5[i] = new Coins(coinsPosX[4][i], coinsPosY[4][i]);
-  }
+  declareCoins(coinsL1, 0);
+  declareCoins(coinsL2, 1);
+  declareCoins(coinsL3, 2);
+  declareCoins(coinsL4, 3);
+  declareCoins(coinsL5, 4);
 
-  //declare mobs for each level
+  //declare entities for each level
+  Main = new Player();
   goon1 = new Goon(goonPosX[0][0], goonPosY[0][0]);
   goon2 = new Goon(goonPosX[0][1], goonPosY[0][1]);
   goon3 = new Goon(goonPosX[1][0], goonPosY[1][0]);
@@ -225,7 +134,47 @@ void setup()
   wraith = new Wraith(wraithPosX, wraithPosY);
 }
 
-//functions
+//declaration functions
+
+void declareCoins (Coins [] x, int y)
+{
+  for (int i = 0; i < x.length; i++)
+  {
+    x[i] = new Coins(coinsPosX[y][i], coinsPosY[y][i]);
+  }
+}
+
+void declareDebris (Debris [] x, int y)
+{
+  for (int i = 0; i < x.length; i++)
+  {
+    x[i] = new Debris(debrisPosX[y][i], debrisPosY[y][i]);
+  }
+}
+
+void declarePits (Pit [] x, int y)
+{
+  for (int i = 0; i < x.length; i++)
+  {
+    x[i] = new Pit(pitPosX[y][i], pitPosY[y][i]);
+  }
+}
+
+void declareTraps (Trap [] x, int y)
+{
+  for (int i = 0; i < x.length; i++)
+  {
+    x[i] = new Trap(trapPosX[y][i], trapPosY[y][i]);
+  }
+}
+
+void declareParticles (Particles [] x, color y, float a, float b, float c)
+{
+  for (int i = 0; i < x.length; i++)
+  {
+    x[i] = new Particles(y, a, b, c);
+  }
+}
 
 void keyPressed()
 {
@@ -309,7 +258,7 @@ void keyPressed()
 } //end keyPressed
 
 //FUNCTIONS
-void displayMap (int level)
+void displayMap ()
 {
   background(255);
   imageMode(CORNER);
@@ -691,7 +640,7 @@ void draw()
       // --------> LEVEL 1 <-------- //  
     case 0:
 
-      displayMap(level);
+      displayMap();
 
       //debris stuff
       for (int i = 0; i < debrisL1.length; i++)
@@ -744,7 +693,7 @@ void draw()
 
       // --------> LEVEL 2 <-------- //
     case 1:
-      displayMap(level);
+      displayMap();
 
       //debris stuff
       for (int i = 0; i < debrisL2.length; i++)
@@ -793,7 +742,7 @@ void draw()
 
       // --------> LEVEL 3 <-------- //  
     case 2:
-      displayMap(level);
+      displayMap();
       for (int i = 0; i < debrisL3.length; i++)
       {
         debrisL3[i].display(level);
@@ -841,7 +790,7 @@ void draw()
 
       // --------> LEVEL 4 <-------- //
     case 3:
-      displayMap(level);
+      displayMap();
 
       //debris stuff
       for (int i = 0; i < debrisL4.length; i++)
@@ -885,7 +834,7 @@ void draw()
 
       // --------> LEVEL 5 <-------- //
     case 4:
-      displayMap(level);
+      displayMap();
 
       //debris stuff
       for (int i = 0; i < debrisL5.length; i++)
@@ -912,9 +861,6 @@ void draw()
         coinsL5[i].display();
         coinsL5[i].pickUp(Main);
       }
-
-      //mob stuff
-      //skele.display(tS);
 
       //player stuff
       Main.display(tS);
