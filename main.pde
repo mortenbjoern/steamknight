@@ -19,11 +19,11 @@ String[] HiScoreName;
 String[] scoring;
 char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'æ', 'ø', 'å', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Æ', 'Ø', 'Å', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 String[] initials = {"_", "_", "_"};
-int initialsPos = 0;
+byte initialsPos = 0;
 String name = join(initials, "");
 
 //global variables, screens
-int screen = 0;
+byte screen = 0;
 PFont bitmapFont;
 PFont cleanFont;
 PImage menuScreen;
@@ -34,7 +34,7 @@ float tS = 64; //tS = tileSize;
 float h = tS/2; //h = half a tileSize;
 color particleColors [] = {color(3, 74, 236), color(207, 16, 32)};
 int score = 0;
-int level = 0;
+byte level = 0;
 
 //level dependant variabels
 int moves = 0;
@@ -426,11 +426,7 @@ void checkConditions(int l)
     //check if PLAYER landed in pit
     for (int i = 0; i < pitsL1.length; i++)
     {
-      if (Main.checkPit(pitsL1[i].getX(), pitsL1[i].getY()) == true)
-      {
-        deathStatement = dByPit;
-        screen = 2;
-      }
+      pitsL1[i].checkPlayer(Main);
     }
 
     //check if something is standing on spikes
@@ -462,9 +458,6 @@ void checkConditions(int l)
 
       goon2.alive = false;
     }
-    if (Main.HP <= 0) {
-      screen = 2;
-    }
 
     //check if player progressed to next level
     if (Main.posX == (tS*16)+h && Main.posY == (tS*4)+h || Main.posX == (tS*16)+h && Main.posY == (tS*5)+h && level == 0)
@@ -472,7 +465,7 @@ void checkConditions(int l)
       /* calculate score based on enemies slain, number of moves taken and other stuff */
       level = 1;
       calcScore();
-      softReset(level);
+      softReset();
     }
 
     break;
@@ -482,11 +475,7 @@ void checkConditions(int l)
     //check if PLAYER landed in pit
     for (int i = 0; i < pitsL2.length; i++)
     {
-      if (Main.checkPit(pitsL2[i].getX(), pitsL2[i].getY()) == true)
-      {
-        deathStatement = dByPit;
-        screen = 2;
-      }
+      pitsL2[i].checkPlayer(Main);
     }
 
     //check if something is standing on spikes
@@ -525,9 +514,6 @@ void checkConditions(int l)
     if (goon3.HP <= 0) {
       goon3.alive = false;
     }
-    if (Main.HP <= 0) {
-      screen = 2;
-    }
 
     //check if player progressed to next level
     if (Main.posX == (tS*16)+h && Main.posY == (tS*8)+h)
@@ -535,7 +521,7 @@ void checkConditions(int l)
       /* calculate score based on enemies slain, number of moves taken and other stuff */
       level++;
       calcScore();
-      softReset(level);
+      softReset();
     }
 
     break;
@@ -545,11 +531,7 @@ void checkConditions(int l)
     //check if PLAYER landed in pit
     for (int i = 0; i < pitsL3.length; i++)
     {
-      if (Main.checkPit(pitsL3[i].getX(), pitsL3[i].getY()) == true)
-      {
-        deathStatement = dByPit;
-        screen = 2;
-      }
+      pitsL3[i].checkPlayer(Main);
     }
 
     //check if something is standing on spikes
@@ -569,9 +551,6 @@ void checkConditions(int l)
     if (skele3.HP <= 0) {
       skele3.alive = false;
     }
-    if (Main.HP <= 0) {
-      screen = 2;
-    }
 
     //check if player progressed to next level
     if (Main.posX == (tS*16)+h && Main.posY == (tS*4)+h || Main.posX == (tS*16)+h && Main.posY == (tS*5)+h)
@@ -579,7 +558,7 @@ void checkConditions(int l)
       /* calculate score based on enemies slain, number of moves taken and other stuff */
       level++;
       calcScore();
-      softReset(level);
+      softReset();
     }
 
     break;
@@ -589,11 +568,7 @@ void checkConditions(int l)
     //check if PLAYER landed in pit
     for (int i = 0; i < pitsL4.length; i++)
     {
-      if (Main.checkPit(pitsL4[i].getX(), pitsL4[i].getY()) == true)
-      {
-        deathStatement = dByPit;
-        screen = 2;
-      }
+      pitsL4[i].checkPlayer(Main);
     }
 
     //check if something is standing on spikes
@@ -622,9 +597,6 @@ void checkConditions(int l)
 
       skele4.alive = false;
     }
-    if (Main.HP <= 0) {
-      screen = 2;
-    }
 
     //check if player progressed to next level
     if (Main.posX == (tS*16)+h && Main.posY == (tS*4)+h || Main.posX == (tS*16)+h && Main.posY == (tS*5)+h)
@@ -632,7 +604,7 @@ void checkConditions(int l)
       /* calculate score based on enemies slain, number of moves taken and other stuff */
       level++;
       calcScore();
-      softReset(level);
+      softReset();
     }
 
     break;
@@ -642,11 +614,7 @@ void checkConditions(int l)
     //check if PLAYER landed in pit
     for (int i = 0; i < pitsL5.length; i++)
     {
-      if (Main.checkPit(pitsL5[i].getX(), pitsL5[i].getY()) == true)
-      {
-        deathStatement = dByPit;
-        screen = 2;
-      }
+      pitsL5[i].checkPlayer(Main);
     }
 
     //check if something is standing on spikes
@@ -662,21 +630,19 @@ void checkConditions(int l)
     //check mob specific stuff here
     //...
 
-    //check if player or mobs are dead
-    if (Main.HP <= 0) {
-      screen = 2;
-    }
-
     //check if player progressed to next level
     if ((Main.posX == (tS*16)+h && Main.posY == (tS*4)+h) || (Main.posX == (tS*16)+h && Main.posY == (tS*5)+h))
     {
       calcScore();
-      softReset(level);
+      softReset();
       screen = 3;
     }
 
     break;
   }
+  
+  //do this regardless of level
+  Main.checkHealth();
 }
 
 void hardReset()
@@ -686,10 +652,7 @@ void hardReset()
   level = 0;
   Main.reset();
   deathStatement = defaultDeathStatement;
-  Main.posX = tS+h;
-  Main.posY = tS+h;
-  Main.oldX = tS+h;
-  Main.oldY = tS+h;
+  Main.setStartPos();
 
   //reset status of all goons
   goon1.posX = goonPosX[0][0]; 
@@ -758,56 +721,28 @@ void hardReset()
   //shuffle all trapCounter values
   for (int i = 0; i < trapsL1.length; i++)
   {
-    trapsL1[i].trapCounter = round(random(2));
+    trapsL1[i].trapCounter = byte(round(random(2)));
   }
   for (int i = 0; i < trapsL2.length; i++)
   {
-    trapsL2[i].trapCounter = round(random(2));
+    trapsL2[i].trapCounter = byte(round(random(2)));
   }
   for (int i = 0; i < trapsL4.length; i++)
   {
-    trapsL4[i].trapCounter = round(random(2));
+    trapsL4[i].trapCounter = byte(round(random(2)));
   }
   for (int i = 0; i < trapsL5.length; i++)
   {
-    trapsL5[i].trapCounter = round(random(2));
+    trapsL5[i].trapCounter = byte(round(random(2)));
   }
 }
 
-void softReset(int l)
+void softReset()
 {
   moves = 0;
   Main.reset();
+  Main.setStartPos();
   deathStatement = defaultDeathStatement;
-
-  //position = level dependant
-  switch (l)
-  {
-  case 0:
-    Main.posX = tS+h;
-    Main.posY = tS+h;
-    break;
-
-  case 1:
-    Main.posX = tS+h;
-    Main.posY = tS+h;
-    break;
-
-  case 2:
-    Main.posX = tS+h;
-    Main.posY = tS+h;
-    break;
-
-  case 3:
-    Main.posX = tS+h;
-    Main.posY = tS*4+h;
-    break;
-
-  case 4:
-    Main.posX = tS+h;
-    Main.posY = tS*4+h;
-    break;
-  }
 
   //reset status of all goons
   goon1.posX = goonPosX[0][0]; 
@@ -876,19 +811,19 @@ void softReset(int l)
   //shuffle all trapCounter values
   for (int i = 0; i < trapsL1.length; i++)
   {
-    trapsL1[i].trapCounter = round(random(2));
+    trapsL1[i].trapCounter = byte(round(random(2)));
   }
   for (int i = 0; i < trapsL2.length; i++)
   {
-    trapsL2[i].trapCounter = round(random(2));
+    trapsL2[i].trapCounter = byte(round(random(2)));
   }
   for (int i = 0; i < trapsL4.length; i++)
   {
-    trapsL4[i].trapCounter = round(random(2));
+    trapsL4[i].trapCounter = byte(round(random(2)));
   }
   for (int i = 0; i < trapsL5.length; i++)
   {
-    trapsL5[i].trapCounter = round(random(2));
+    trapsL5[i].trapCounter = byte(round(random(2)));
   }
 }
 

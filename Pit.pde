@@ -2,8 +2,8 @@ class Pit {
   //pit variables
   float posX;
   float posY;
-  int frame = 0;
-  int maxF = 4;
+  byte frame = 0;
+  byte maxF = 4;
   float everyMillis = 250;
   int ticksLast = millis();
   PImage pit = loadImage("assets/pit.png");
@@ -63,6 +63,15 @@ class Pit {
       image(f5, posX, posY);
       break;
     }
+  }
+  
+  void checkPlayer (Player a)
+  {
+    if (a.posX == posX && a.posY == posY)
+      {
+        deathStatement = dByPit;
+        screen = 2;
+      }
   }
 
   float getX ()

@@ -2,8 +2,8 @@ class Coins {
   boolean active = true;
   float posX; 
   float posY;
-  int frame = 0;
-  int maxF = 8;
+  byte frame = 0;
+  byte maxF = 8;
   float everyMillis = 125;
   int ticksLast = millis();
   int value = 1000;

@@ -7,8 +7,8 @@ class Wraith {
   boolean canMoveDown = true;
   boolean canMoveRight = true;
   boolean canMoveLeft = true;
-  int frame = 0;
-  int maxF = 4;
+  byte frame = 0;
+  byte maxF = 4;
   float everyMillis = 250;
   int ticksLast = millis();
   PImage wraith = loadImage("assets/wraith.png");

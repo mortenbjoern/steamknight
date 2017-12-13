@@ -1,22 +1,29 @@
 class Player {
+  //player booleans
   boolean alive = true;
-  float oldX = tS+(tS/2);
-  float oldY = tS+(tS/2);
-  float posX = tS+(tS/2);
-  float posY = tS+(tS/2);
+  boolean isAttacking = false;
   boolean canMoveUp = true;
   boolean canMoveDown = true;
   boolean canMoveRight = true;
   boolean canMoveLeft = true;
-  boolean isAttacking = false;
-  float maxHP = 3;
-  int mobKills = 0;
-  int pickUps = 0;
-  int HP = 3;
-  int frame = 0;
-  int maxF = 4;
-  int frame1 = 0;
-  int maxF1 = 10;
+  
+  //player position
+  float oldX;
+  float oldY;
+  float posX;
+  float posY;
+  
+  //player condition
+  byte HP = 3;
+  byte maxHP = 3;
+  byte mobKills = 0;
+  byte pickUps = 0;
+  
+  //player animation
+  byte frame = 0;
+  byte maxF = 4;
+  byte frame1 = 0;
+  byte maxF1 = 10;
   float everyMillis = 250;
   float everyMillisAttack = 62.5;
   int ticksLast = millis();
@@ -365,6 +372,40 @@ class Player {
     frame = 0;
     frame1 = 0;
   }
+  
+  void checkHealth ()
+  {
+    if (HP <= 0) {
+      screen = 2;
+    }
+  }
+  
+  void setStartPos ()
+  {
+    switch (level)
+    {
+      case 0:
+      posX = tS+h;
+      posY = tS+h;
+      break;
+      case 1:
+      posX = tS+h;
+      posY = tS+h;
+      break;
+      case 2:
+      posX = tS+h;
+      posY = tS+h;
+      break;
+      case 3:
+      posX = tS+h;
+      posY = tS*4+h;
+      break;
+      case 4:
+      posX = tS+h;
+      posY = tS*4+h;
+      break;
+    }
+  }
 
   boolean checkColR (/* float x, float y */)
   {
@@ -400,16 +441,6 @@ class Player {
   boolean checkColD (/* float x, float y */)
   {
     if (oldY+tS > bB /* || (oldY+tS == y && oldX == x) */) //add: || oldX+tS == entityPos);
-    {
-      return true;
-    } else {
-      return false;
-    }
-  } // end checkColD
-
-  boolean checkPit (float x, float y)
-  {
-    if (posX == x && posY == y) //add: || oldX+tS == entityPos);
     {
       return true;
     } else {
