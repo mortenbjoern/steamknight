@@ -240,7 +240,7 @@ void keyPressed()
       } else
       {
         Main.posY -= tS;
-        afterMoves(level);
+        afterMoves();
       }
     }
     if (keyCode == DOWN)
@@ -251,7 +251,7 @@ void keyPressed()
       } else
       {
         Main.posY += tS;
-        afterMoves(level);
+        afterMoves();
       }
     }
     if (keyCode == RIGHT)
@@ -262,7 +262,7 @@ void keyPressed()
       } else
       {
         Main.posX += tS;
-        afterMoves(level);
+        afterMoves();
       }
     }
     if (keyCode == LEFT)
@@ -273,7 +273,7 @@ void keyPressed()
       } else
       {
         Main.posX -= tS;
-        afterMoves(level);
+        afterMoves();
       }
     }
 
@@ -297,7 +297,7 @@ void keyPressed()
     {
       Main.attackD(goon1, goon2, goon3, seeker, skele1, skele2, skele3, skele4);
     }
-    afterMoves(level);
+    afterMoves();
     checkConditions(level);
     Main.update();
   }
@@ -318,10 +318,10 @@ void displayMap (int level)
   stroke(1);
 }
 
-void afterMoves (int l)
+void afterMoves ()
 {
   moves ++;
-  switch(l) {
+  switch(level) {
   case 0:
 
     //entity moves
@@ -332,14 +332,9 @@ void afterMoves (int l)
 
     for (int i = 0; i < trapsL1.length; i++)
     {
-      trapsL1[i].trapCounter++;
+      trapsL1[i].count();
     }
-    for (int i = 0; i < trapsL1.length; i++)
-    {
-      if (trapsL1[i].trapCounter > 2) {
-        trapsL1[i].trapCounter = 0;
-      }
-    }
+    
     break;
 
   case 1:
@@ -353,14 +348,9 @@ void afterMoves (int l)
     //trap progression
     for (int i = 0; i < trapsL2.length; i++)
     {
-      trapsL2[i].trapCounter++;
+      trapsL2[i].count();
     }
-    for (int i = 0; i < trapsL2.length; i++)
-    {
-      if (trapsL2[i].trapCounter > 2) {
-        trapsL2[i].trapCounter = 0;
-      }
-    }
+    
     break;
 
   case 2:
@@ -385,26 +375,14 @@ void afterMoves (int l)
 
     for (int i = 0; i < trapsL4.length; i++)
     {
-      trapsL4[i].trapCounter++;
-    }
-    for (int i = 0; i < trapsL4.length; i++)
-    {
-      if (trapsL4[i].trapCounter > 2) {
-        trapsL4[i].trapCounter = 0;
-      }
+      trapsL4[i].count();
     }
     break;
 
   case 4:
     for (int i = 0; i < trapsL5.length; i++)
     {
-      trapsL5[i].trapCounter++;
-    }
-    for (int i = 0; i < trapsL5.length; i++)
-    {
-      if (trapsL5[i].trapCounter > 2) {
-        trapsL5[i].trapCounter = 0;
-      }
+      trapsL5[i].count();
     }
     break;
   }
@@ -432,32 +410,14 @@ void checkConditions(int l)
     //check if something is standing on spikes
     for (int i = 0; i < trapsL1.length; i++)
     {
-      if (trapsL1[i].getX() == Main.posX && trapsL1[i].getY() == Main.posY && trapsL1[i].trapCounter == 2)
-      {
-        deathStatement = dByTrap;
-        Main.HP -= 1;
-      }
-      if (trapsL1[i].getX() == goon1.getX() && trapsL1[i].getY() == goon1.getY() && trapsL1[i].trapCounter == 2)
-      {
-        goon1.HP -= 1;
-      }
-      if (trapsL1[i].getX() == goon2.getX() && trapsL1[i].getY() == goon2.getY() && trapsL1[i].trapCounter == 2)
-      {
-        goon2.HP -= 1;
-      }
+      trapsL1[i].playerOn(Main);
+      trapsL1[i].goonOn(goon1);
+      trapsL1[i].goonOn(goon2);
     }
 
-    //check mob specific stuff here
-    //...
-
-    //check if player or mobs are dead
-    if (goon1.HP <= 0) {
-      goon1.alive = false;
-    }
-    if (goon2.HP <= 0) {
-
-      goon2.alive = false;
-    }
+    //check if mobs are dead
+    goon1.checkHealth();
+    goon2.checkHealth();
 
     //check if player progressed to next level
     if (Main.posX == (tS*16)+h && Main.posY == (tS*4)+h || Main.posX == (tS*16)+h && Main.posY == (tS*5)+h && level == 0)
@@ -481,39 +441,17 @@ void checkConditions(int l)
     //check if something is standing on spikes
     for (int i = 0; i < trapsL2.length; i++)
     {
-      if (trapsL2[i].getX() == Main.posX && trapsL2[i].getY() == Main.posY && trapsL2[i].trapCounter == 2)
-      {
-        deathStatement = dByTrap;
-        Main.HP -= 1;
-      }
-      if (trapsL2[i].getX() == goon3.getX() && trapsL2[i].getY() == goon3.getY() && trapsL2[i].trapCounter == 2)
-      {
-        goon3.HP -= 1;
-      }
-      if (trapsL2[i].getX() == seeker.getX() && trapsL2[i].getY() == seeker.getY() && trapsL2[i].trapCounter == 2)
-      {
-        seeker.HP -= 1;
-      }
+      trapsL2[i].playerOn(Main);
+      trapsL2[i].goonOn(goon3);
+      trapsL2[i].seekerOn(seeker);
     }
 
     //check mob specific stuff here
-    if (seeker.getX() == Main.posX && seeker.getY() == Main.posY && seeker.alive == true)
-    {
-      seeker.alive = false;
-      seeker.frame = 0; //improves deavth animation
-      deathStatement = dBySeeker;
-      Main.HP -= 2;
-    }
+    seeker.explode(Main);
 
-    //check if player or mobs are dead
-    if (seeker.HP <= 0 && seeker.alive == true) {
-
-      seeker.frame = 0; //improves death animation
-      seeker.alive = false;
-    }
-    if (goon3.HP <= 0) {
-      goon3.alive = false;
-    }
+    //check if mobs are dead
+    seeker.checkHealth();
+    goon3.checkHealth();
 
     //check if player progressed to next level
     if (Main.posX == (tS*16)+h && Main.posY == (tS*8)+h)
@@ -534,23 +472,10 @@ void checkConditions(int l)
       pitsL3[i].checkPlayer(Main);
     }
 
-    //check if something is standing on spikes
-
-    /* no traps in this level */
-
-    //check mob specific stuff here
-    //...
-
-    //check if player or mobs are dead
-    if (skele1.HP <= 0) {
-      skele1.alive = false;
-    }
-    if (skele2.HP <= 0) {
-      skele2.alive = false;
-    }
-    if (skele3.HP <= 0) {
-      skele3.alive = false;
-    }
+    //check if mobs are dead
+    skele1.checkHealth();
+    skele2.checkHealth();
+    skele3.checkHealth();
 
     //check if player progressed to next level
     if (Main.posX == (tS*16)+h && Main.posY == (tS*4)+h || Main.posX == (tS*16)+h && Main.posY == (tS*5)+h)
@@ -574,15 +499,8 @@ void checkConditions(int l)
     //check if something is standing on spikes
     for (int i = 0; i < trapsL4.length; i++)
     {
-      if (trapsL4[i].getX() == Main.posX && trapsL4[i].getY() == Main.posY && trapsL4[i].trapCounter == 2)
-      {
-        deathStatement = dByTrap;
-        Main.HP -= 1;
-      }
-      if (trapsL4[i].getX() == skele4.getX() && trapsL4[i].getY() == skele4.getY() && trapsL4[i].trapCounter == 2)
-      {
-        skele4.HP -= 1;
-      }
+      trapsL4[i].playerOn(Main);
+      trapsL4[i].skeleOn(skele4);
     }
 
     //check mob specific stuff here
@@ -592,11 +510,8 @@ void checkConditions(int l)
       screen = 2;
     }
 
-    //check if player or mobs are dead
-    if (skele4.HP <= 0) {
-
-      skele4.alive = false;
-    }
+    //check if mobs are dead
+    
 
     //check if player progressed to next level
     if (Main.posX == (tS*16)+h && Main.posY == (tS*4)+h || Main.posX == (tS*16)+h && Main.posY == (tS*5)+h)
@@ -620,11 +535,7 @@ void checkConditions(int l)
     //check if something is standing on spikes
     for (int i = 0; i < trapsL5.length; i++)
     {
-      if (trapsL5[i].getX() == Main.posX && trapsL5[i].getY() == Main.posY && trapsL5[i].trapCounter == 2)
-      {
-        deathStatement = dByTrap;
-        Main.HP -= 1;
-      }
+      trapsL5[i].playerOn(Main);
     }
 
     //check mob specific stuff here
@@ -651,50 +562,19 @@ void hardReset()
   score = 0;
   level = 0;
   Main.reset();
-  deathStatement = defaultDeathStatement;
   Main.setStartPos();
+  deathStatement = defaultDeathStatement;
 
-  //reset status of all goons
-  goon1.posX = goonPosX[0][0]; 
-  goon1.posY = goonPosY[0][0];
-  goon2.posX = goonPosX[0][1]; 
-  goon1.posY = goonPosY[0][1];
-  goon3.posX = goonPosX[1][0]; 
-  goon1.posY = goonPosY[1][0];
-  goon1.alive = true;
-  goon2.alive = true;
-  goon3.alive = true;
-  goon1.HP = 1;
-  goon2.HP = 1;
-  goon3.HP = 1;
-
-  //reset status of all skeletons
-  skele1.posX = skeletonPosX[0][0]; 
-  skele1.posY = skeletonPosY[0][0];
-  skele2.posX = skeletonPosX[0][1]; 
-  skele2.posY = skeletonPosY[0][1];
-  skele3.posX = skeletonPosX[0][2]; 
-  skele3.posY = skeletonPosY[0][2];
-  skele4.posX = skeletonPosX[1][0]; 
-  skele4.posY = skeletonPosY[1][0];
-  skele1.alive = true;
-  skele2.alive = true;
-  skele3.alive = true;
-  skele4.alive = true;
-  skele1.HP = 1;
-  skele2.HP = 1;
-  skele3.HP = 1;
-  skele4.HP = 1;
-
-  //reset status of all seekers
-  seeker.posX = seekerPosX; 
-  seeker.posY = seekerPosY;
-  seeker.alive = true;
-  seeker.HP = 3;
-
-  //reset status of all wraiths
-  wraith.posX = wraithPosX; 
-  wraith.posY = wraithPosY;
+  //reset status of all mobs
+  goon1.reset();
+  goon2.reset();
+  goon3.reset();
+  skele1.reset();
+  skele2.reset();
+  skele3.reset();
+  skele4.reset();
+  seeker.reset();
+  wraith.reset();
 
   //activate all coins
   for (int i = 0; i < coinsL1.length; i++)
@@ -744,47 +624,16 @@ void softReset()
   Main.setStartPos();
   deathStatement = defaultDeathStatement;
 
-  //reset status of all goons
-  goon1.posX = goonPosX[0][0]; 
-  goon1.posY = goonPosY[0][0];
-  goon2.posX = goonPosX[0][1]; 
-  goon1.posY = goonPosY[0][1];
-  goon3.posX = goonPosX[1][0]; 
-  goon1.posY = goonPosY[1][0];
-  goon1.alive = true;
-  goon2.alive = true;
-  goon3.alive = true;
-  goon1.HP = 1;
-  goon2.HP = 1;
-  goon3.HP = 1;
-
-  //reset status of all skeletons
-  skele1.posX = skeletonPosX[0][0]; 
-  skele1.posY = skeletonPosY[0][0];
-  skele2.posX = skeletonPosX[0][1]; 
-  skele2.posY = skeletonPosY[0][1];
-  skele3.posX = skeletonPosX[0][2]; 
-  skele3.posY = skeletonPosY[0][2];
-  skele4.posX = skeletonPosX[1][0]; 
-  skele4.posY = skeletonPosY[1][0];
-  skele1.alive = true;
-  skele2.alive = true;
-  skele3.alive = true;
-  skele4.alive = true;
-  skele1.HP = 1;
-  skele2.HP = 1;
-  skele3.HP = 1;
-  skele4.HP = 1;
-
-  //reset status of all seekers
-  seeker.posX = seekerPosX; 
-  seeker.posY = seekerPosY;
-  seeker.alive = true;
-  seeker.HP = 3;
-
-  //reset status of all wraiths
-  wraith.posX = wraithPosX; 
-  wraith.posY = wraithPosY;
+  //reset status of all mobs
+  goon1.reset();
+  goon2.reset();
+  goon3.reset();
+  skele1.reset();
+  skele2.reset();
+  skele3.reset();
+  skele4.reset();
+  seeker.reset();
+  wraith.reset();
 
   //activate all coins
   for (int i = 0; i < coinsL1.length; i++)
@@ -856,7 +705,7 @@ void draw()
       //trap stuff
       for (int i = 0; i < trapsL1.length; i++)
       {
-        trapsL1[i].display(tS, trapsL1[i].trapCounter);
+        trapsL1[i].display(tS);
       }
 
       //pit stuff
@@ -909,7 +758,7 @@ void draw()
       //trap stuff
       for (int i = 0; i < trapsL2.length; i++)
       {
-        trapsL2[i].display(tS, trapsL2[i].trapCounter);
+        trapsL2[i].display(tS);
       }
 
       //pit stuff
@@ -1005,7 +854,7 @@ void draw()
       //trap stuff 
       for (int i = 0; i < trapsL4.length; i++)
       {
-        trapsL4[i].display(tS, trapsL4[i].trapCounter);
+        trapsL4[i].display(tS);
       }
 
       //pit stuff
@@ -1048,7 +897,7 @@ void draw()
       //trap stuff
       for (int i = 0; i < trapsL5.length; i++)
       {
-        trapsL5[i].display(tS, trapsL5[i].trapCounter);
+        trapsL5[i].display(tS);
       }
 
       //pit stuff

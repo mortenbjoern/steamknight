@@ -4,6 +4,8 @@ class Seeker {
   float posY;
   float oldX;
   float oldY;
+  float startPosX;
+  float startPosY;
   byte HP = 3;
   boolean canMoveUp = true;
   boolean canMoveDown = true;
@@ -20,6 +22,8 @@ class Seeker {
   {
     posX = x;
     posY = y;
+    startPosX = posX;
+    startPosY = posY;
   }
 
   void display (float x) 
@@ -321,6 +325,32 @@ class Seeker {
     canMoveDown = true;
     canMoveRight = true;
     canMoveLeft = true;
+  }
+  
+  void reset()
+  {
+    posX = startPosX;
+    posY = startPosY;
+    HP = 3;
+    alive = true;
+  }
+  
+  void checkHealth ()
+  {
+    if (HP <= 0) {
+      alive = false;
+    }
+  }
+  
+  void explode (Player a)
+  {
+    if (posX == a.posX && posY == a.posY && alive)
+    {
+      alive = false;
+      frame = 0; //improves deavth animation
+      deathStatement = dBySeeker;
+      a.HP -= 2;
+    }
   }
 
   boolean colGoon (Goon z)

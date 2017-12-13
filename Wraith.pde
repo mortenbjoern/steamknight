@@ -3,6 +3,8 @@ class Wraith {
   float posY;
   float oldX;
   float oldY;
+  float startPosX;
+  float startPosY;
   boolean canMoveUp = true;
   boolean canMoveDown = true;
   boolean canMoveRight = true;
@@ -17,6 +19,8 @@ class Wraith {
   {
     posX = x;
     posY = y;
+    startPosX = posX;
+    startPosY = posY;
   }
 
   void display (float x) 
@@ -195,6 +199,12 @@ class Wraith {
     canMoveDown = true;
     canMoveRight = true;
     canMoveLeft = true;
+  }
+  
+  void reset()
+  {
+    posX = startPosX;
+    posY = startPosY;
   }
 
   boolean colSkele (Skeleton z)

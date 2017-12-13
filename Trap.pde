@@ -17,49 +17,94 @@ class Trap {
     posY = y;
   }
 
-  void display (float x, int y) 
+  void display (float x) 
   {
     switch(level)
     {
     case 0:
       imageMode(CENTER);
-      PImage frame = spiketrap.get(0 + (int(x)*y), 0, 64, 64);
+      PImage frame = spiketrap.get(0 + (int(x)*trapCounter), 0, 64, 64);
       image(frame, posX, posY);
       break;
-      
+
     case 1:
       imageMode(CENTER);
-      PImage frame1 = spiketrap.get(0 + (int(x)*y), 0, 64, 64);
+      PImage frame1 = spiketrap.get(0 + (int(x)*trapCounter), 0, 64, 64);
       image(frame1, posX, posY);
       break;
-      
+
     case 2:
       imageMode(CENTER);
-      PImage frame2 = spiketrap.get(0 + (int(x)*y), 0, 64, 64);
+      PImage frame2 = spiketrap.get(0 + (int(x)*trapCounter), 0, 64, 64);
       image(frame2, posX, posY);
       break;
-      
+
     case 3:
       imageMode(CENTER);
-      PImage frame3 = spiketrap.get(0 + (int(x)*y), 0, 64, 64);
+      PImage frame3 = spiketrap.get(0 + (int(x)*trapCounter), 0, 64, 64);
       image(frame3, posX, posY);
       break;
-      
+
     case 4:
       imageMode(CENTER);
-      PImage frame4 = lavatrap.get(0 + (int(x)*y), 0, 64, 64);
+      PImage frame4 = lavatrap.get(0 + (int(x)*trapCounter), 0, 64, 64);
       image(frame4, posX, posY);
       break;
     }
-    } // end display()
-
-    float getX ()
+  } // end display()
+  
+  void count ()
+  {
+    trapCounter++;
+    if (trapCounter > 2)
     {
-      return posX;
+      trapCounter = 0;
     }
-
-    float getY ()
+  }
+  
+  void playerOn (Player a)
+  {
+   if (posX == a.posX && posY == a.posY && trapCounter == 2)
     {
-      return posY;
+      deathStatement = dByTrap;
+      a.HP -= 1;
     }
-  } // end class
+  }
+  
+  void goonOn (Goon a)
+  {
+   if (posX == a.posX && posY == a.posY && trapCounter == 2)
+    {
+      deathStatement = dByTrap;
+      a.HP -= 1;
+    }
+  }
+  
+  void seekerOn (Seeker a)
+  {
+   if (posX == a.posX && posY == a.posY && trapCounter == 2)
+    {
+      deathStatement = dByTrap;
+      a.HP -= 1;
+    }
+  }
+  
+  void skeleOn (Skeleton a)
+  {
+   if (posX == a.posX && posY == a.posY && trapCounter == 2)
+    {
+      deathStatement = dByTrap;
+      a.HP -= 1;
+    }
+  }
+
+  float getX ()
+  {
+    return posX;
+  }
+
+  float getY ()
+  {
+    return posY;
+  }
+} // end class

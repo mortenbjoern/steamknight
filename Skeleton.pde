@@ -6,6 +6,8 @@ class Skeleton {
   float posY;
   float oldX;
   float oldY;
+  float startPosX;
+  float startPosY;
   byte HP = 1;
   byte revivalCounter = 0;
   byte revivalTime = 0;
@@ -29,6 +31,8 @@ class Skeleton {
   {
     posX = x;
     posY = y;
+    startPosX = posX;
+    startPosY = posY;
   }
 
   void display (float x) 
@@ -402,6 +406,21 @@ class Skeleton {
     canMoveDown = true;
     canMoveRight = true;
     canMoveLeft = true;
+  }
+  
+  void reset()
+  {
+    posX = startPosX;
+    posY = startPosY;
+    HP = 1;
+    alive = true;
+  }
+  
+  void checkHealth ()
+  {
+    if (HP <= 0) {
+      alive = false;
+    }
   }
   
   void revive ()
