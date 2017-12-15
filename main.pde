@@ -5,7 +5,7 @@
  Description: 
  Steam Knight is a top down turn-based game, drawing inspiration from old dungeon crawlers.
  The object of the game is to collect enough coins and defeat enough monsters to get a highscore. 
- here are five levels in the game, each with their own theme (forest, dungeon, catacombs, cursed church, hell).
+ There are five levels in the game, each with their own theme (forest, dungeon, catacombs, cursed church, hell).
  
  v1.0.2 — DEC 2017
  */
@@ -256,16 +256,6 @@ void keyPressed()
   deleteInput();
   submitName(); //you can find this in the "Navigation" tab
 } //end keyPressed
-
-//FUNCTIONS
-void displayMap ()
-{
-  background(255);
-  imageMode(CORNER);
-  PImage skin = dungeon.get(0 + (1152*level), 0, 1152, 640);
-  image(skin, 0, 0);
-  stroke(1);
-}
 
 void afterMoves ()
 {

@@ -37,6 +37,15 @@ void displayMainMenu()
   textFont(cleanFont);
 }
 
+void displayMap ()
+{
+  background(255);
+  imageMode(CORNER);
+  PImage skin = dungeon.get(0 + (1152*level), 0, 1152, 640);
+  image(skin, 0, 0);
+  stroke(1);
+}
+
 void displayDeathScreen()
 {
   background(30);
