@@ -80,7 +80,7 @@ void setup()
   cleanFont = createFont("Roboto-Medium.ttf", 15);
   textFont(cleanFont);
 
-  //declare sounds
+  /* declare sounds
   menu = new SoundFile(this, "0.mp3");
   clik = new SoundFile(this, "clickMenu.wav");
   pres = new SoundFile(this, "letterTick.wav");
@@ -89,6 +89,7 @@ void setup()
   coin = new SoundFile(this, "coin.wav");
   move = new SoundFile(this, "move.wav");
   goonie = new SoundFile(this, "goon.wav");
+  */
 
   //declare particles
   declareParticles(rain, color(3, 74, 236), random(-1, 1), 240, random(-720));
@@ -179,7 +180,7 @@ void declareParticles (Particles [] x, color y, float a, float b, float c)
 void keyPressed()
 {
   if (key == CODED && screen == 1)
-    move.play();
+    //move.play();
   {
     if (keyCode == UP)
     {
@@ -630,7 +631,7 @@ void draw()
   switch(screen) {
   case 0:
     displayMainMenu(); //you can find this in the "Navigation" tab
-    level1music(menu);
+    //level1music(menu);
     break;
 
   case 1:

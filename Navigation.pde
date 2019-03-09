@@ -105,7 +105,7 @@ void displayHighscoreScreen ()
 /* === FUNCTIONS FOR NAVIGATION AROUND THE MENUS AND SUBMITTING YOUR SCORE TO THE HIGHSCORE LIST === */
 void mousePressed()
 {
-  pres.play();
+  //pres.play();
   if (screen == 0 //start the game
     && mouseX > 94
     && mouseX < 228
@@ -208,7 +208,7 @@ void submitName ()
     String name = join(initials, "");
     addToHiScore(name, score);
 
-    clik.play();
+    //clik.play();
 
     saveStrings("data/hiscorenames.txt", HiScoreName);
     saveStrings("data/hiscores.txt", scoring);
@@ -226,7 +226,7 @@ void enterLetters ()
     {
       if (key == letters[k])
       {
-        pres.play();
+        //pres.play();
         initials[initialsPos] = str(letters[k]);
         name = join(initials, "");
         initialsPos++;
@@ -249,20 +249,20 @@ void deleteInput ()
   {
     if (initialsPos == 2 && initials[2] != "_")
     {
-      delete.play();
+      //delete.play();
       initials[2] = "_";
       name = join(initials, "");
       keyPressed = false;
     } else if (initialsPos == 2 && initials[initialsPos] == "_")
     {
-      delete.play();
+      //delete.play();
       initialsPos -= 1;
       initials[initialsPos] = "_";
       name = join(initials, "");
       keyPressed = false;
     } else if (initialsPos == 1 && initials[initialsPos] == "_")
     {
-      delete.play();
+      //delete.play();
       initialsPos -= 1;
       initials[initialsPos] = "_";
       name = join(initials, "");

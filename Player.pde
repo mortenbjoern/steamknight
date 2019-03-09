@@ -106,7 +106,7 @@ class Player {
   void attackL (Goon a, Goon b, Goon c, Seeker d, Skeleton e, Skeleton f, Skeleton g, Skeleton h)
   {
     isAttacking = true;
-    slash.play();
+    //slash.play();
     if (posX-tS == a.posX && posY == a.posY)
     {
       a.HP -= 1;
@@ -169,7 +169,7 @@ class Player {
   void attackR (Goon a, Goon b, Goon c, Seeker d, Skeleton e, Skeleton f, Skeleton g, Skeleton h)
   {
     isAttacking = true;
-    slash.play();
+    //slash.play();
     if (posX+tS == a.posX && posY == a.posY)
     {
       a.HP -= 1;
@@ -232,7 +232,7 @@ class Player {
   void attackU (Goon a, Goon b, Goon c, Seeker d, Skeleton e, Skeleton f, Skeleton g, Skeleton h)
   {
     isAttacking = true;
-    slash.play();
+    //slash.play();
     if (posY-tS == a.posY && posX == a.posX)
     {
       a.HP -= 1;
@@ -295,7 +295,7 @@ class Player {
   void attackD (Goon a, Goon b, Goon c, Seeker d, Skeleton e, Skeleton f, Skeleton g, Skeleton h)
   {
     isAttacking = true;
-    slash.play();
+    //slash.play();
     if (posY+tS == a.posY && posX == a.posX)
     {
       a.HP -= 1;

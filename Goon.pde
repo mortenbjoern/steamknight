@@ -106,7 +106,7 @@ class Goon {
       {
         isAttacking = true;
         deathStatement = dByGoon;
-        goonie.play();
+        //goonie.play();
         a.HP -=1;
       }
       
@@ -150,7 +150,7 @@ class Goon {
       {
         isAttacking = true;
         deathStatement = dByGoon;
-        goonie.play();
+        //goonie.play();
         a.HP -=1;
       }
       
@@ -194,7 +194,7 @@ class Goon {
       {
         isAttacking = true;
         deathStatement = dByGoon;
-        goonie.play();
+        //goonie.play();
         a.HP -=1;
       }
       
@@ -236,7 +236,7 @@ class Goon {
       {
         isAttacking = true;
         deathStatement = dByGoon;
-        goonie.play();
+        //goonie.play();
         a.HP -=1;
       }
       

@@ -43,7 +43,7 @@ class Coins {
   {
     if (posX == a.posX && posY == a.posY && active == true)
     {
-      coin.play();
+      //coin.play();
       a.pickUps++;
       score += value;
       active = false;

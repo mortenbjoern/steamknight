@@ -1,4 +1,4 @@
-//Libraries to be imported
+/* Libraries to be imported
 import processing.sound.*;
 
 boolean playmusic = true;
@@ -26,3 +26,4 @@ void level1music(SoundFile a)
     playmusic = true;
   }
 }
+*/
